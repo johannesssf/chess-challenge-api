@@ -4,6 +4,7 @@ from models.pieces import (
     PieceModel,
     InvalidPieceColorError,
     InvalidPieceNameError,
+    calculate_knight_moves,
 )
 from models.boards import (
     BoardModel,
@@ -91,3 +92,11 @@ def test_board_get_piece_by_location_exceptions():
 
     with pytest.raises(NotValidSquareLocationError):
         board.get_piece_by_location(None)
+
+
+def test_knight_move_calculator():
+    assert calculate_knight_moves('1A') == ['3B', '2C']
+    assert calculate_knight_moves('8H') == ['6G', '7F']
+    assert calculate_knight_moves('2e') == ['4F', '4D', '3G', '1G', '3C', '1C']
+    assert calculate_knight_moves('5b') == ['3C', '3A', '7C', '7A', '6D', '4D']
+    assert calculate_knight_moves('4E') == ['2F', '2D', '6F', '6D', '5G', '3G', '5C', '3C']

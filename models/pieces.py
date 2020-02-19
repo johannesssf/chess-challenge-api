@@ -35,3 +35,37 @@ class PieceModel:
         self.name = name.capitalize()
         self.color = color.capitalize()
         self.id = f"{self.name[:2]}{self.color[0]}"
+
+
+def calculate_knight_moves(board_location):
+    """Calculates all possible moves of a Knight.
+
+    Arguments:
+        board_location {str} -- Valid location of a 64-square board
+
+    Returns:
+        [list] -- All valid moves from the initial location
+    """
+    convert_to_num = {char:idx for idx, char in enumerate('ABCDEFGH', 1)}
+    convert_to_char = {idx:char for idx, char in enumerate('ABCDEFGH', 1)}
+    line = int(board_location[0])
+    col = convert_to_num[board_location[1].upper()]
+
+    # calculate all possible moves of our Knight
+    possible_moves = []
+    possible_moves.append((line - 2, col + 1))
+    possible_moves.append((line - 2, col - 1))
+    possible_moves.append((line + 2, col + 1))
+    possible_moves.append((line + 2, col - 1))
+    possible_moves.append((line + 1, col + 2))
+    possible_moves.append((line - 1, col + 2))
+    possible_moves.append((line + 1, col - 2))
+    possible_moves.append((line - 1, col - 2))
+
+    # validate if generated moves are inside of a 64-square board
+    valid_moves = []
+    for line, col in possible_moves:
+        if 0 < line < 9 and 0 < col < 9:
+            valid_moves.append(f"{line}{convert_to_char[col]}")
+
+    return valid_moves
