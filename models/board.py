@@ -1,57 +1,43 @@
 """Chess board
 """
 
-class NotEmptySquareError(Exception):
-    pass
 
-
-class NotAvailableSquaresInBoardError(Exception):
-    pass
-
-
-class NotValidSquareLocationError(Exception):
+class PieceNotFoundError(Exception):
     pass
 
 
 class BoardModel:
 
     def __init__(self):
-        """Creates a 64-square board.
+        """Creates a new board.
         """
-        self.squares = {f'{r}{c}': None for r in range(1, 9) for c in 'ABCDEFGH'}
-        self.__pieces_index = 0
+        self.board_pieces = []
+        self.__piece_index = 0
 
-    def set_piece(self, location, piece):
-        """Adds a chess piece in a board square location.
+    def add_piece(self, piece):
+        """Adds a chess piece into the board.
 
         Arguments:
-            location {str} -- Board square location indexed by 1A 1B ... 8G 8H
-            piece {Piece} -- Piece to add in the board
-
-        Raises:
-            NotEmptySquareError: In an attempt to use an occupied square
+            piece {PieceModel} -- New piece to be added
         """
-        if self.get_piece_by_location(location) is not None:
-            raise NotEmptySquareError("Board square already in use")
+        self.__piece_index += 1
+        piece.id = f"{piece.id}{self.__piece_index}"
+        self.board_pieces.append(piece)
 
-        self.__pieces_index += 1
-        piece.id = f"{piece.id}{self.__pieces_index}"
-        self.squares[location] = piece
-
-    def get_piece_by_location(self, location):
-        """Returns a piece in a specific board square location.
+    def get_piece_by_id(self, piece_id):
+        """Returns the piece with the given id.
 
         Arguments:
-            location {str} -- Board square location indexed by 1A 1B ... 8G 8H
+            piece_id {str} -- Id to locate the desired piece
 
         Raises:
-            NotValidSquareLocationError: In an attempt to access an invalid
-            key location
+            PieceNotFoundError: When it's not possible to find the piece
 
         Returns:
-            Piece -- The piece in specified location or None if it's empty
+            PieceModel -- The piece with the specified id
         """
-        if location not in self.squares:
-            raise NotValidSquareLocationError("Boad square not found")
+        for piece in self.board_pieces:
+            if piece.id == piece_id:
+                return piece
 
-        return self.squares[location]
+        raise PieceNotFoundError("None piece found with the specified id")
