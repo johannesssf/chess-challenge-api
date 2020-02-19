@@ -1,12 +1,12 @@
 import pytest
 
-from models.pieces import (
+from models.piece import (
     PieceModel,
     InvalidPieceColorError,
     InvalidPieceNameError,
     calculate_knight_moves,
 )
-from models.boards import (
+from models.board import (
     BoardModel,
     NotEmptySquareError,
     NotAvailableSquaresInBoardError,
