@@ -1,6 +1,7 @@
 """Chess piece
 """
 
+
 class InvalidPieceNameError(Exception):
     pass
 
@@ -46,8 +47,8 @@ def calculate_knight_moves(board_location):
     Returns:
         [list] -- All valid moves from the initial location
     """
-    convert_to_num = {char:idx for idx, char in enumerate('ABCDEFGH', 1)}
-    convert_to_char = {idx:char for idx, char in enumerate('ABCDEFGH', 1)}
+    convert_to_num = {char: idx for idx, char in enumerate('ABCDEFGH', 1)}
+    convert_to_char = {idx: char for idx, char in enumerate('ABCDEFGH', 1)}
     line = int(board_location[0])
     col = convert_to_num[board_location[1].upper()]
 

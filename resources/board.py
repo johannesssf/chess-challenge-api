@@ -1,4 +1,3 @@
-from flask import jsonify
 from flask_restful import Resource, reqparse
 from models.board import BoardModel, PieceNotFoundError
 from models.piece import (
@@ -93,4 +92,3 @@ class BoardPieceCoord(Resource):
             "coord": coord,
             "possible_moves": moves,
         }
-
